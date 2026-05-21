@@ -9,5 +9,6 @@ from __future__ import annotations
 
 from winecollector.database import Base
 from winecollector.models.user import User
+from winecollector.models.wine import Wine
 
-__all__ = ["Base", "User"]
+__all__ = ["Base", "User", "Wine"]

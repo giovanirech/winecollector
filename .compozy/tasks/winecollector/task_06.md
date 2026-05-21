@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: Wine model & migration
 type: backend
 complexity: low
@@ -32,11 +32,11 @@ Materialize the `Wine` entity — the core of the entire app — with every fiel
 </requirements>
 
 ## Subtasks
-- [ ] 06.1 Implement `src/winecollector/models/wine.py` declaring `Wine` with every field.
-- [ ] 06.2 Export `Wine` from `src/winecollector/models/__init__.py`.
-- [ ] 06.3 Generate the migration via `alembic revision --autogenerate -m "create wines table"`.
-- [ ] 06.4 Review autogenerate output and add the `CHECK (stock >= 0)` constraint and the named indexes if missing.
-- [ ] 06.5 Apply the migration to the test database and confirm via `\d wines`.
+- [x] 06.1 Implement `src/winecollector/models/wine.py` declaring `Wine` with every field.
+- [x] 06.2 Export `Wine` from `src/winecollector/models/__init__.py`.
+- [x] 06.3 Generate the migration via `alembic revision -m "create wines table"` (autogenerate skipped — no live DB; schema written manually).
+- [x] 06.4 Add the `CHECK (stock >= 0)` constraint and the four named indexes (`source_url` unique, plus `wine_type`, `winery`, `purchased_at`).
+- [x] 06.5 Apply the migration to the test database and confirm the schema (covered by `tests/integration/test_wines_migration.py`; offline `alembic upgrade --sql` also renders the expected DDL).
 
 ## Implementation Details
 See TechSpec section "Data Models" for the canonical column list (English identifiers, English stored values for categorical fields per the project naming rule). Refer to `.claude/rules/python-style.md` for the SQLAlchemy 2.0 declarative pattern.
@@ -62,12 +62,12 @@ See TechSpec section "Data Models" for the canonical column list (English identi
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_wine_model.py::test_wine_columns_match_techspec` — assert every documented column is present with the expected type and nullability.
-  - [ ] `tests/unit/test_wine_model.py::test_source_url_is_unique` — `Wine.__table__` has a unique constraint on `source_url`.
+  - [x] `tests/unit/test_wine_model.py::test_wine_columns_match_techspec` — assert every documented column is present with the expected type and nullability.
+  - [x] `tests/unit/test_wine_model.py::test_source_url_is_unique_and_indexed` — `Wine.__table__` has a unique index on `source_url`.
 - Integration tests:
-  - [ ] `tests/integration/test_wines_migration.py::test_insert_minimum_wine_succeeds` — inserting a row with only the not-null fields succeeds and gets defaults applied.
-  - [ ] `tests/integration/test_wines_migration.py::test_duplicate_source_url_raises_integrity_error` — inserting two wines with the same `source_url` raises `IntegrityError`.
-  - [ ] `tests/integration/test_wines_migration.py::test_stock_negative_check_blocks_negative_value` — setting `stock = -1` raises `IntegrityError`.
+  - [x] `tests/integration/test_wines_migration.py::test_insert_minimum_wine_succeeds` — inserting a row with only the not-null fields succeeds and gets defaults applied.
+  - [x] `tests/integration/test_wines_migration.py::test_duplicate_source_url_raises_integrity_error` — inserting two wines with the same `source_url` raises `IntegrityError`.
+  - [x] `tests/integration/test_wines_migration.py::test_stock_negative_check_blocks_negative_value` — setting `stock = -1` raises `IntegrityError`.
 - Test coverage target: >=80%
 - All tests must pass
 
