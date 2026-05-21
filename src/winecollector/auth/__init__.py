@@ -13,7 +13,11 @@ from winecollector.auth.backend import (
     build_cookie_transport,
     get_jwt_strategy,
 )
-from winecollector.auth.dependencies import current_active_user, fastapi_users
+from winecollector.auth.dependencies import (
+    current_active_user,
+    fastapi_users,
+    signup_open,
+)
 from winecollector.auth.manager import UserManager, get_user_manager
 from winecollector.auth.user_db import get_user_db
 
@@ -26,4 +30,5 @@ __all__ = [
     "get_jwt_strategy",
     "get_user_db",
     "get_user_manager",
+    "signup_open",
 ]

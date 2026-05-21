@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}WineCollector{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body class="bg-stone-50 text-stone-900 min-h-screen flex flex-col">
+  <header class="bg-rose-950 text-rose-50 px-4 py-3 shadow">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      <a href="/" class="font-semibold tracking-wide">Adega</a>
+      <nav class="text-sm">
+        {% block nav %}{% endblock %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 px-4 py-6 max-w-3xl w-full mx-auto">
+    {% if flash %}
+      <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-800 px-3 py-2 text-sm">
+        {{ flash }}
+      </div>
+    {% endif %}
+    <div id="flash" aria-live="polite"
+         hx-on:showToast="this.innerHTML = '<div class=&quot;rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-800 px-3 py-2 text-sm mb-4&quot;>' + event.detail.message + '</div>'"></div>
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-xs text-stone-500 text-center py-4">
+    Adega pessoal · WineCollector
+  </footer>
+</body>
+</html>

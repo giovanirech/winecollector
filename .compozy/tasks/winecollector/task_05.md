@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: Auth routes, base layout & first-run signup gate
 type: backend
 complexity: medium
@@ -31,12 +31,12 @@ Expose the public auth surface — login, logout, and the self-closing `/signup`
 </requirements>
 
 ## Subtasks
-- [ ] 05.1 Implement `src/winecollector/routers/auth.py` with the signup gate, login page render, logout handler, and login-success redirect.
-- [ ] 05.2 Wire fastapi-users' login route under `/auth/login` so it sets the cookie configured in task_04.
-- [ ] 05.3 Implement `templates/base.html` with Tailwind/HTMX CDN, viewport meta, navbar slot, content block, and flash region.
-- [ ] 05.4 Implement `templates/auth/login.html` and `templates/auth/signup.html` extending `base.html`.
-- [ ] 05.5 Add the small dependency `signup_open(db) -> bool` that powers the gate.
-- [ ] 05.6 Register the auth router in `winecollector.main:app`.
+- [x] 05.1 Implement `src/winecollector/routers/auth.py` with the signup gate, login page render, logout handler.
+- [x] 05.2 Wire fastapi-users' login route under `/auth/login` so it sets the cookie configured in task_04.
+- [x] 05.3 Implement `templates/base.html` with Tailwind/HTMX CDN, viewport meta, navbar slot, content block, and flash region.
+- [x] 05.4 Implement `templates/auth/login.html` and `templates/auth/signup.html` extending `base.html`.
+- [x] 05.5 Add the small dependency `signup_open(db) -> bool` that powers the gate.
+- [x] 05.6 Register the auth router in `winecollector.main:app` (custom router included before fastapi-users' so our `/auth/logout` takes precedence over the built-in 204 response).
 
 ## Implementation Details
 See TechSpec sections "API Endpoints" and "Integration Points" for the gate semantics and ADR-005 for the rationale. The login template uses an HTML form, not HTMX, because fastapi-users' login endpoint expects a standard form post and sets the cookie via response headers.
@@ -65,13 +65,13 @@ See TechSpec sections "API Endpoints" and "Integration Points" for the gate sema
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_signup_gate.py::test_signup_open_true_when_users_empty` — `signup_open(session)` returns `True` with no users.
-  - [ ] `tests/unit/test_signup_gate.py::test_signup_open_false_after_first_user` — returns `False` once a user row exists.
+  - [x] `tests/unit/test_signup_gate.py::test_signup_open_true_when_users_empty` — `signup_open(session)` returns `True` with no users.
+  - [x] `tests/unit/test_signup_gate.py::test_signup_open_false_after_first_user` — returns `False` once a user row exists.
 - Integration tests:
-  - [ ] `tests/integration/test_auth_flow.py::test_signup_creates_first_user` — `POST /signup` with valid form data creates a user and redirects to `/login`.
-  - [ ] `tests/integration/test_auth_flow.py::test_signup_returns_404_after_first_user` — once one user exists, `GET /signup` returns 404.
-  - [ ] `tests/integration/test_auth_flow.py::test_login_sets_jwt_cookie` — `POST /auth/login` with correct credentials returns 204 and sets the `winecollector_auth` cookie.
-  - [ ] `tests/integration/test_auth_flow.py::test_logout_clears_jwt_cookie` — `POST /auth/logout` clears the cookie.
+  - [x] `tests/integration/test_auth_flow.py::test_signup_creates_first_user` — `POST /signup` with valid form data creates a user and redirects to `/login`.
+  - [x] `tests/integration/test_auth_flow.py::test_signup_returns_404_after_first_user` — once one user exists, `GET /signup` returns 404.
+  - [x] `tests/integration/test_auth_flow.py::test_login_sets_jwt_cookie` — `POST /auth/login` with correct credentials returns 204 and sets the `winecollector_auth` cookie.
+  - [x] `tests/integration/test_auth_flow.py::test_logout_clears_jwt_cookie` — `POST /auth/logout` clears the cookie.
 - Test coverage target: >=80%
 - All tests must pass
 

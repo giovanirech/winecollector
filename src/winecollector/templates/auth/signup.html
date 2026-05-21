@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Criar conta · Adega{% endblock %}
+
+{% block content %}
+<section class="max-w-sm mx-auto">
+  <h1 class="text-2xl font-semibold text-rose-950 mb-1">Criar a primeira conta</h1>
+  <p class="text-sm text-stone-600 mb-6">
+    Esta é uma adega pessoal. Após criar a primeira conta o cadastro será desativado automaticamente.
+  </p>
+
+  {% if error %}
+    <div class="mb-4 rounded-lg border border-rose-300 bg-rose-50 text-rose-800 px-3 py-2 text-sm">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <form method="post" action="/signup" class="space-y-4">
+    <div>
+      <label for="email" class="block text-sm font-medium mb-1">E-mail</label>
+      <input id="email" name="email" type="email" autocomplete="email" required
+             class="w-full rounded-lg border border-stone-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-900">
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium mb-1">Senha</label>
+      <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required
+             class="w-full rounded-lg border border-stone-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-900">
+      <p class="mt-1 text-xs text-stone-500">Mínimo de 8 caracteres.</p>
+    </div>
+    <button type="submit"
+            class="w-full bg-rose-900 text-rose-50 rounded-lg py-2 font-medium hover:bg-rose-800">
+      Criar conta
+    </button>
+  </form>
+</section>
+{% endblock %}
