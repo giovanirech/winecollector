@@ -18,9 +18,11 @@ env/
 !.env.example
 
 # Local data (database volume + scraped images)
+# Note: data/postgres/ must remain ENTIRELY empty on the host — Postgres's
+# initdb refuses to initialize a mount point containing any files, including
+# .gitkeep. The directory is recreated automatically on first `docker compose up`.
 data/postgres/
 data/images/
-!data/postgres/.gitkeep
 !data/images/.gitkeep
 
 # Testing & coverage
