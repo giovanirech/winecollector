@@ -7,7 +7,7 @@
 | 01 | Project skeleton & tooling | completed | low | — |
 | 02 | Config & async database wiring | completed | low | task_01 |
 | 03 | User model & initial migration | completed | low | task_02 |
-| 04 | Authentication backend (cookie JWT) | pending | medium | task_03 |
+| 04 | Authentication backend (cookie JWT) | completed | medium | task_03 |
 | 05 | Auth routes, base layout & first-run signup gate | pending | medium | task_04 |
 | 06 | Wine model & migration | pending | low | task_03 |
 | 07 | WineTasting model & migration | pending | low | task_06 |

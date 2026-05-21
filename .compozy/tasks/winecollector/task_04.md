@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: Authentication backend (cookie JWT)
 type: backend
 complexity: medium
@@ -31,12 +31,12 @@ Wire fastapi-users with the `CookieTransport` + `JWTStrategy` combination chosen
 </requirements>
 
 ## Subtasks
-- [ ] 04.1 Add `src/winecollector/auth/__init__.py` exporting public names.
-- [ ] 04.2 Implement `src/winecollector/auth/user_db.py` with `get_user_db`.
-- [ ] 04.3 Implement `src/winecollector/auth/manager.py` with `UserManager` and `get_user_manager`.
-- [ ] 04.4 Implement `src/winecollector/auth/backend.py` with `CookieTransport`, `JWTStrategy`, and the assembled `AuthenticationBackend`.
-- [ ] 04.5 Implement `src/winecollector/auth/dependencies.py` exporting `fastapi_users` and `current_active_user`.
-- [ ] 04.6 Verify the cookie attributes adapt to `ENVIRONMENT` from settings.
+- [x] 04.1 Add `src/winecollector/auth/__init__.py` exporting public names.
+- [x] 04.2 Implement `src/winecollector/auth/user_db.py` with `get_user_db`.
+- [x] 04.3 Implement `src/winecollector/auth/manager.py` with `UserManager` and `get_user_manager`.
+- [x] 04.4 Implement `src/winecollector/auth/backend.py` with `CookieTransport`, `JWTStrategy`, and the assembled `AuthenticationBackend`.
+- [x] 04.5 Implement `src/winecollector/auth/dependencies.py` exporting `fastapi_users` and `current_active_user`.
+- [x] 04.6 Verify the cookie attributes adapt to `ENVIRONMENT` from settings (parametrized unit test for development/production).
 
 ## Implementation Details
 Follow TechSpec section "Integration Points" (no external services here, only internal libraries) and ADR-004 for transport configuration. The structure mirrors the fastapi-users SQLAlchemy quickstart but never mounts the default register router. Read the auth dependencies into routes via `Depends(current_active_user)`.
@@ -64,12 +64,12 @@ Follow TechSpec section "Integration Points" (no external services here, only in
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_auth_backend.py::test_jwt_strategy_uses_settings_secret` — strategy reads `SECRET_KEY` from `Settings`.
-  - [ ] `tests/unit/test_auth_backend.py::test_cookie_secure_flag_follows_environment` — `secure=True` when `ENVIRONMENT=production`, `False` otherwise.
-  - [ ] `tests/unit/test_user_manager.py::test_on_after_register_logs_event` — `on_after_register` emits an INFO log with the user email.
+  - [x] `tests/unit/test_auth_backend.py::test_jwt_strategy_uses_settings_secret` — strategy reads `SECRET_KEY` from `Settings`.
+  - [x] `tests/unit/test_auth_backend.py::test_cookie_secure_flag_follows_environment` — `secure=True` when `ENVIRONMENT=production`, `False` otherwise.
+  - [x] `tests/unit/test_user_manager.py::test_on_after_register_logs_event` — `on_after_register` emits an INFO log with the user email.
 - Integration tests:
-  - [ ] `tests/integration/test_auth_protection.py::test_unauthenticated_request_to_protected_route_returns_401_or_redirect` — a route that depends on `current_active_user` rejects unauthenticated requests.
-  - [ ] `tests/integration/test_auth_protection.py::test_valid_cookie_grants_access` — a request with a valid JWT cookie returns 200.
+  - [x] `tests/integration/test_auth_protection.py::test_unauthenticated_request_to_protected_route_returns_401_or_redirect` — a route that depends on `current_active_user` rejects unauthenticated requests.
+  - [x] `tests/integration/test_auth_protection.py::test_valid_cookie_grants_access` — a request with a valid JWT cookie returns 200.
 - Test coverage target: >=80%
 - All tests must pass
 
