@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: URL normalizer & aging-potential parser
 type: backend
 complexity: low
@@ -29,10 +29,10 @@ Implement the two pure functions that the scraper and the wine service both depe
 </requirements>
 
 ## Subtasks
-- [ ] 09.1 Create `src/winecollector/services/scraping/__init__.py`.
-- [ ] 09.2 Implement `src/winecollector/services/scraping/normalize.py` with `normalize_wine_url`.
-- [ ] 09.3 Implement `src/winecollector/services/scraping/parsers.py` with `parse_aging_potential`.
-- [ ] 09.4 Author exhaustive table-driven tests for every documented edge case.
+- [x] 09.1 Create `src/winecollector/services/scraping/__init__.py` (and `services/__init__.py`).
+- [x] 09.2 Implement `src/winecollector/services/scraping/normalize.py` with `normalize_wine_url`.
+- [x] 09.3 Implement `src/winecollector/services/scraping/parsers.py` with `parse_aging_potential`.
+- [x] 09.4 Author exhaustive table-driven tests for every documented edge case (19 cases for URL, 12 for aging-potential).
 
 ## Implementation Details
 Both functions are described in TechSpec section "Integration Points". The URL normalizer uses `urllib.parse.urlsplit`; the parser uses `re.findall(r"\d+", text)` with the documented selection rules. Keep both files free of any imports from `winecollector.models` or `winecollector.schemas` to preserve their purity.
@@ -57,16 +57,16 @@ Both functions are described in TechSpec section "Integration Points". The URL n
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_normalize_url.py::test_lowercases_host` — `normalize_wine_url("https://WWW.WINE.COM.BR/x/prod1.html")` returns `"https://www.wine.com.br/x/prod1.html"`.
-  - [ ] `tests/unit/test_normalize_url.py::test_strips_query_and_fragment` — input with `?utm=x#frag` returns the same path without them.
-  - [ ] `tests/unit/test_normalize_url.py::test_strips_trailing_slash` — `"https://www.wine.com.br/x/"` returns `"https://www.wine.com.br/x"`.
-  - [ ] `tests/unit/test_normalize_url.py::test_rejects_non_wine_com_br_host` — `"https://example.com/x"` raises `ValueError`.
-  - [ ] `tests/unit/test_normalize_url.py::test_rejects_non_http_scheme` — `"ftp://www.wine.com.br/x"` raises `ValueError`.
-  - [ ] `tests/unit/test_parse_aging_potential.py::test_single_integer_returns_it` — `"5 anos"` → 5.
-  - [ ] `tests/unit/test_parse_aging_potential.py::test_range_returns_upper_bound` — `"10 a 15 anos"` → 15.
-  - [ ] `tests/unit/test_parse_aging_potential.py::test_ate_n_anos_returns_n` — `"Até 8 anos"` → 8.
-  - [ ] `tests/unit/test_parse_aging_potential.py::test_non_numeric_returns_none` — `"Pronto para beber"` → `None`.
-  - [ ] `tests/unit/test_parse_aging_potential.py::test_none_input_returns_none` — `None` → `None`.
+  - [x] `tests/unit/test_normalize_url.py::test_lowercases_host` — `normalize_wine_url("https://WWW.WINE.COM.BR/x/prod1.html")` returns `"https://www.wine.com.br/x/prod1.html"`.
+  - [x] `tests/unit/test_normalize_url.py::test_strips_query_and_fragment` — input with `?utm=x#frag` returns the same path without them.
+  - [x] `tests/unit/test_normalize_url.py::test_strips_trailing_slash` — `"https://www.wine.com.br/x/"` returns `"https://www.wine.com.br/x"`.
+  - [x] `tests/unit/test_normalize_url.py::test_rejects_non_wine_com_br_host` — `"https://example.com/x"` raises `ValueError` (parametrized: also covers `wine.com`, `wine.com.br.evil.com`, `faux-wine.com.br`).
+  - [x] `tests/unit/test_normalize_url.py::test_rejects_non_http_scheme` — `"ftp://www.wine.com.br/x"` raises `ValueError` (parametrized: also covers `file://`, `javascript:`).
+  - [x] `tests/unit/test_parse_aging_potential.py::test_single_integer_returns_it` — `"5 anos"` → 5.
+  - [x] `tests/unit/test_parse_aging_potential.py::test_range_returns_upper_bound` — `"10 a 15 anos"` → 15.
+  - [x] `tests/unit/test_parse_aging_potential.py::test_ate_n_anos_returns_n` — `"Até 8 anos"` → 8.
+  - [x] `tests/unit/test_parse_aging_potential.py::test_non_numeric_returns_none` — `"Pronto para beber"` → `None`.
+  - [x] `tests/unit/test_parse_aging_potential.py::test_none_input_returns_none` — `None` → `None`.
 - Integration tests: not applicable (pure functions).
 - Test coverage target: >=80%
 - All tests must pass

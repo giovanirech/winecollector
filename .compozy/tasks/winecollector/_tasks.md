@@ -12,7 +12,7 @@
 | 06 | Wine model & migration | completed | low | task_03 |
 | 07 | WineTasting model & migration | completed | low | task_06 |
 | 08 | Pydantic schemas (wine, tasting, export, WineScrapedData) | completed | low | task_07 |
-| 09 | URL normalizer & aging-potential parser | pending | low | task_01 |
+| 09 | URL normalizer & aging-potential parser | completed | low | task_01 |
 | 10 | Image normalizer (Pillow → WebP) | pending | low | task_01 |
 | 11 | Scraper service (httpx + BeautifulSoup) | pending | medium | task_08, task_09, task_10 |
 | 12 | i18n display labels | pending | low | task_08 |
