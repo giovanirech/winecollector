@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: Pydantic schemas (wine, tasting, export, WineScrapedData)
 type: backend
 complexity: low
@@ -32,11 +32,11 @@ Author the Pydantic v2 schemas that mediate every boundary in the app: scraping 
 </requirements>
 
 ## Subtasks
-- [ ] 08.1 Implement `src/winecollector/schemas/__init__.py` exporting public names.
-- [ ] 08.2 Implement `src/winecollector/schemas/wine.py` (`WineScrapedData`, `WineCreate`, `WineUpdate`, `WineResponse`, `WineFilterParams`).
-- [ ] 08.3 Implement `src/winecollector/schemas/tasting.py` (`TastingCreate`, `TastingUpdate`, `TastingResponse`).
-- [ ] 08.4 Implement `src/winecollector/schemas/export.py` (`ExportedWine`, `ExportEnvelope`).
-- [ ] 08.5 Validate that `WineResponse.model_validate(wine_orm_instance)` round-trips correctly.
+- [x] 08.1 Implement `src/winecollector/schemas/__init__.py` exporting public names.
+- [x] 08.2 Implement `src/winecollector/schemas/wine.py` (`WineScrapedData`, `WineCreate`, `WineUpdate`, `WineResponse`, `WineFilterParams`).
+- [x] 08.3 Implement `src/winecollector/schemas/tasting.py` (`TastingCreate`, `TastingUpdate`, `TastingResponse`).
+- [x] 08.4 Implement `src/winecollector/schemas/export.py` (`ExportedWine`, `ExportEnvelope`).
+- [x] 08.5 Validate that `WineResponse.model_validate(wine_orm_instance)` round-trips correctly (covered by `tests/integration/test_schemas_round_trip.py`).
 
 ## Implementation Details
 See TechSpec "Core Interfaces" for `WineScrapedData` and "Data Models" for the export envelope shape. All field names follow the English-identifier rule established with the user.
@@ -64,13 +64,14 @@ See TechSpec "Core Interfaces" for `WineScrapedData` and "Data Models" for the e
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_wine_schemas.py::test_wine_scraped_data_defaults_all_optional` — `WineScrapedData()` constructs with no arguments and `scrape_status == "failed"`.
-  - [ ] `tests/unit/test_wine_schemas.py::test_wine_create_requires_source_url_and_name` — omitting `source_url` raises `ValidationError`.
-  - [ ] `tests/unit/test_wine_schemas.py::test_wine_filter_params_parses_query_string` — `WineFilterParams(...)` accepts both empty and populated filter combinations.
-  - [ ] `tests/unit/test_tasting_schemas.py::test_tasting_create_requires_wine_id` — omitting `wine_id` raises `ValidationError`.
-  - [ ] `tests/unit/test_export_schemas.py::test_export_envelope_default_schema_version_is_1` — `ExportEnvelope(...).schema_version == 1`.
+  - [x] `tests/unit/test_wine_schemas.py::test_wine_scraped_data_defaults_all_optional` — `WineScrapedData()` constructs with no arguments and `scrape_status == "failed"`.
+  - [x] `tests/unit/test_wine_schemas.py::test_wine_create_requires_name_and_source_url` — omitting `source_url` or `name` raises `ValidationError`.
+  - [x] `tests/unit/test_wine_schemas.py::test_wine_filter_params_parses_query_string` — `WineFilterParams(...)` accepts both empty and populated filter combinations.
+  - [x] `tests/unit/test_tasting_schemas.py::test_tasting_create_requires_wine_id` — omitting `wine_id` raises `ValidationError`.
+  - [x] `tests/unit/test_export_schemas.py::test_export_envelope_default_schema_version_is_1` — `ExportEnvelope(...).schema_version == 1`.
 - Integration tests:
-  - [ ] `tests/integration/test_schemas_round_trip.py::test_wine_response_from_orm_instance` — insert a `Wine`, build `WineResponse.model_validate(wine)`, assert every field round-trips.
+  - [x] `tests/integration/test_schemas_round_trip.py::test_wine_response_from_orm_instance` — insert a `Wine`, build `WineResponse.model_validate(wine)`, assert every field round-trips.
+  - [x] `tests/integration/test_schemas_round_trip.py::test_exported_wine_includes_tastings` — `ExportedWine.model_validate(wine)` carries the wine's tasting history.
 - Test coverage target: >=80%
 - All tests must pass
 

@@ -11,7 +11,7 @@
 | 05 | Auth routes, base layout & first-run signup gate | completed | medium | task_04 |
 | 06 | Wine model & migration | completed | low | task_03 |
 | 07 | WineTasting model & migration | completed | low | task_06 |
-| 08 | Pydantic schemas (wine, tasting, export, WineScrapedData) | pending | low | task_07 |
+| 08 | Pydantic schemas (wine, tasting, export, WineScrapedData) | completed | low | task_07 |
 | 09 | URL normalizer & aging-potential parser | pending | low | task_01 |
 | 10 | Image normalizer (Pillow → WebP) | pending | low | task_01 |
 | 11 | Scraper service (httpx + BeautifulSoup) | pending | medium | task_08, task_09, task_10 |
