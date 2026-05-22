@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 title: WineTasting model & migration
 type: backend
 complexity: low
@@ -30,11 +30,11 @@ Ship the `wine_tastings` schema in V1 even though Phase 1 has no UI for it. Per 
 </requirements>
 
 ## Subtasks
-- [ ] 07.1 Implement `src/winecollector/models/tasting.py` declaring `WineTasting`.
-- [ ] 07.2 Add the `tastings` relationship on `Wine`.
-- [ ] 07.3 Export `WineTasting` from `src/winecollector/models/__init__.py`.
-- [ ] 07.4 Generate the migration via `alembic revision --autogenerate -m "create wine_tastings table"`.
-- [ ] 07.5 Confirm autogenerate produced the `ON DELETE CASCADE` and the `wine_id` index; fix manually if not.
+- [x] 07.1 Implement `src/winecollector/models/tasting.py` declaring `WineTasting`.
+- [x] 07.2 Add the `tastings` relationship on `Wine` (`lazy="selectin"`, `cascade="all, delete-orphan"`).
+- [x] 07.3 Export `WineTasting` from `src/winecollector/models/__init__.py`.
+- [x] 07.4 Generate the migration via `alembic revision -m "create wine_tastings table"` (autogenerate skipped — no live DB; schema written manually).
+- [x] 07.5 Confirm the `ON DELETE CASCADE` and the `wine_id` index — verified by offline `alembic upgrade --sql` and by the cascade integration test.
 
 ## Implementation Details
 See TechSpec "Data Models" → `wine_tastings` table and ADR-006 for the rationale of shipping the schema without UI. The relationship on `Wine` must use `selectin` loading because all SQLAlchemy access is async — `lazy="select"` would crash in async contexts.
@@ -60,12 +60,12 @@ See TechSpec "Data Models" → `wine_tastings` table and ADR-006 for the rationa
 
 ## Tests
 - Unit tests:
-  - [ ] `tests/unit/test_tasting_model.py::test_tasting_columns_match_techspec` — every documented column is present with the expected type.
-  - [ ] `tests/unit/test_tasting_model.py::test_wine_id_fk_cascades` — `wine_id` foreign key declares `ondelete="CASCADE"`.
+  - [x] `tests/unit/test_tasting_model.py::test_tasting_columns_match_techspec` — every documented column is present with the expected type.
+  - [x] `tests/unit/test_tasting_model.py::test_wine_id_fk_cascades` — `wine_id` foreign key declares `ondelete="CASCADE"`.
 - Integration tests:
-  - [ ] `tests/integration/test_tastings_migration.py::test_insert_and_select_tasting` — insert a tasting with a valid `wine_id`; `SELECT` returns it.
-  - [ ] `tests/integration/test_tastings_migration.py::test_delete_wine_cascades_to_tastings` — deleting a wine removes its tastings.
-  - [ ] `tests/integration/test_tastings_migration.py::test_new_wine_tastings_is_empty_list` — a freshly inserted `Wine` exposes `Wine.tastings == []`.
+  - [x] `tests/integration/test_tastings_migration.py::test_insert_and_select_tasting` — insert a tasting with a valid `wine_id`; `SELECT` returns it.
+  - [x] `tests/integration/test_tastings_migration.py::test_delete_wine_cascades_to_tastings` — deleting a wine removes its tastings.
+  - [x] `tests/integration/test_tastings_migration.py::test_new_wine_tastings_is_empty_list` — a freshly inserted `Wine` exposes `Wine.tastings == []`.
 - Test coverage target: >=80%
 - All tests must pass
 

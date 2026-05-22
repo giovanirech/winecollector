@@ -8,7 +8,8 @@ Importing this package eagerly registers every model on
 from __future__ import annotations
 
 from winecollector.database import Base
+from winecollector.models.tasting import WineTasting
 from winecollector.models.user import User
 from winecollector.models.wine import Wine
 
-__all__ = ["Base", "User", "Wine"]
+__all__ = ["Base", "User", "Wine", "WineTasting"]

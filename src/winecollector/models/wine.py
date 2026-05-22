@@ -13,6 +13,7 @@ normalized ``source_url``. ``stock`` is a mutable integer with a
 from __future__ import annotations
 
 import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     CheckConstraint,
@@ -23,9 +24,12 @@ from sqlalchemy import (
     Text,
     func,
 )
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from winecollector.database import Base
+
+if TYPE_CHECKING:  # pragma: no cover
+    from winecollector.models.tasting import WineTasting
 
 
 class Wine(Base):
@@ -80,4 +84,10 @@ class Wine(Base):
         nullable=False,
         server_default=func.now(),
         onupdate=func.now(),
+    )
+
+    tastings: Mapped[list[WineTasting]] = relationship(
+        back_populates="wine",
+        cascade="all, delete-orphan",
+        lazy="selectin",
     )
